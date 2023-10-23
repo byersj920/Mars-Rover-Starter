@@ -6,4 +6,25 @@ const Command = require('../command.js');
 
 describe("Message class", function() {
 
+/* I followed the command.spec example of a missing entry for this test. */
+/* Test 4 */
+test('throws error if a name is NOT passed into the constructor as the first parameter', function(){
+    expect(function() {new Message();}).toThrow(new Error ('Your Message needs a name!'));
+});
+
+ /* These next two tests are used to make sure the class is constructing properly.*/
+ /* Test 5 */
+test('the constructor sets name', function(){
+    let testMessage1 = new Message('Jonathan Byers');
+    expect(testMessage1.name).toBe('Jonathan Byers');
+});
+/* Test 6 */
+test('contains a commands array passed into the second argument', function(){
+    let testCommands = [0, 1, 2, 3];
+    let testMessage2 = new Message('Filler Message', testCommands);
+    expect(testMessage2.commands).toEqual([0, 1, 2, 3]);
+});
+
+
+
 });
