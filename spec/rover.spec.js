@@ -23,7 +23,8 @@ let testRover1 = new Rover(123456789);
   /* Test 8 */
   test('response returned by receiveMessage contains the name of the message', function(){
     let singleCommand = new Command('STATUS_CHECk');
-    let testingMessage = new Message('This is a test! Do not be alarmed!', singleCommand);
+    let singleCommandHolder = [singleCommand];
+    let testingMessage = new Message('This is a test! Do not be alarmed!', singleCommandHolder);
     let response = testRover1.receiveMessage(testingMessage);
     expect(response.message).toEqual('This is a test! Do not be alarmed!');
   });
@@ -72,10 +73,24 @@ let testRover1 = new Rover(123456789);
 test('responds with a false completed value when attempting to move in LOW_POWER mode', function(){
   /* In this test, testRover is still in LOW_POWER mode from test 11. So it should NOT be able to move. */
   let commandTest1 = new Command('MOVE', 987654321);
-  let testingMessage = new Message('Movement Test', commandTest1);
+  let commandTestHolder = [commandTest1];
+  let testingMessage = new Message('Movement Test', commandTestHolder);
   let response = testRover1.receiveMessage(testingMessage);
   expect(testRover1.mode).toEqual('LOW_POWER');
   expect(response.results[0].completed).toEqual(false);
+});
+
+/* Test 13 */
+test('responds with the position for the move command', function(){
+  /* For this test, just to keep things simple, instead of creating a whole new collection of objects just to change the mode on
+  testRover1 back to NORMAL, I just created a new rover object since its default mode is already NORMAL. */
+  let testRover2 = new Rover(123456789);
+  let commandTest1 = new Command('MOVE', 987654321);
+  let commandTestHolder = [commandTest1];
+  let testingMessage = new Message('Movement Test', commandTestHolder);
+  let response = testRover2.receiveMessage(testingMessage);
+  expect(response.results[0].completed).toEqual(true);
+  expect(testRover2.position).toEqual(987654321);
 });
 
 });
