@@ -49,7 +49,7 @@ let testRover1 = new Rover(123456789);
     let testingMessage = new Message('Another test baybee', commandCombined);
     let response = testRover1.receiveMessage(testingMessage);
     /*Copied Stuff ^*/
-    expect(response.results[0].completed).toEqual(true);
+    expect(response.results[0].completed).toBeTruthy();
     expect(typeof response.results[0].roverStatus).toEqual('object');
     expect(response.results[0].roverStatus.mode).toEqual('NORMAL');
     expect(response.results[0].roverStatus.position).toEqual(123456789);
@@ -65,7 +65,7 @@ let testRover1 = new Rover(123456789);
     let testingMessage = new Message('Another test baybee', commandCombined);
     let response = testRover1.receiveMessage(testingMessage);
     /* Mostly copied stuff ^ */
-    expect(response.results[0].completed).toEqual(true);
+    expect(response.results[0].completed).toBeTruthy();
     expect(testRover1.mode).toEqual('LOW_POWER');
 });
 
@@ -77,7 +77,7 @@ test('responds with a false completed value when attempting to move in LOW_POWER
   let testingMessage = new Message('Movement Test', commandTestHolder);
   let response = testRover1.receiveMessage(testingMessage);
   expect(testRover1.mode).toEqual('LOW_POWER');
-  expect(response.results[0].completed).toEqual(false);
+  expect(response.results[0].completed).toBeFalsy();
 });
 
 /* Test 13 */
@@ -89,7 +89,7 @@ test('responds with the position for the move command', function(){
   let commandTestHolder = [commandTest1];
   let testingMessage = new Message('Movement Test', commandTestHolder);
   let response = testRover2.receiveMessage(testingMessage);
-  expect(response.results[0].completed).toEqual(true);
+  expect(response.results[0].completed).toBeTruthy();
   expect(testRover2.position).toEqual(987654321);
 });
 
